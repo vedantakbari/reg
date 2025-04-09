@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reigs Sweet Discord | Blox Fruits Community</title>
+    <title>Reigs Superior Discord | Blox Fruits Community</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* ===== RESET & BASE STYLES ===== */
@@ -706,6 +706,66 @@
             transform: scale(1.2);
         }
 
+        /* ===== CUSTOM CURSOR ===== */
+        .custom-cursor-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .custom-cursor-outer {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(88, 101, 242, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, border-color 0.2s;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .custom-cursor-inner {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: rgba(88, 101, 242, 0.2);
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        .custom-cursor-outer.hover {
+            width: 60px;
+            height: 60px;
+            border-color: var(--secondary-color);
+        }
+
+        /* Hide default cursor for PC users */
+        @media (pointer: fine) {
+            body, a, button, .btn, .feature-box, .resource-card, 
+            .nav-links li a, .footer-links li a, #dark-mode-toggle {
+                cursor: none;
+            }
+        }
+
         /* ===== MEDIA QUERIES ===== */
         @media (max-width: 1024px) {
             h1 { font-size: 3rem; }
@@ -780,7 +840,7 @@
             <nav>
                 <div class="logo">
                     <i class="fab fa-discord"></i>
-                    <span>Reigs Sweet Discord</span>
+                    <span>Reigs Superior Discord</span>
                 </div>
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
@@ -839,8 +899,8 @@
                     <div class="icon-container">
                         <i class="fas fa-comments"></i>
                     </div>
-                    <h3>Game Discussions</h3>
-                    <p>Dedicated channels for discussing various aspects of Blox Fruits, from combat strategies to fruit comparisons and update speculations.</p>
+                    <h3>Roblox Community</h3>
+                    <p></p>
                 </div>
                 <div class="feature-box animate-fadeIn delay-400">
                     <div class="icon-container">
@@ -897,7 +957,7 @@
         <div class="container">
             <div class="stats">
                 <div class="stat-box animate-fadeIn">
-                    <div class="stat-number" id="members-count">4,500+</div>
+                    <div class="stat-number" id="members-count">Loading...</div>
                     <div class="stat-label">Community Members</div>
                 </div>
                 <div class="stat-box animate-fadeIn delay-100">
@@ -950,7 +1010,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Reigs Sweet Discord</h3>
+                    <h3>Reigs Superior Discord</h3>
                     <p>A vibrant community for Blox Fruits enthusiasts and Roblox players looking to enhance their gaming experience.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-discord"></i></a>
@@ -979,10 +1039,17 @@
             </div>
             <div class="footer-bottom">
                 <p>This community is not affiliated with Roblox Corporation or the official Blox Fruits development team.</p>
-                <p>&copy; 2025 Reigs Sweet Discord. All rights reserved.</p>
+                <p>&copy; 2025 Reigs Superior Discord. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Custom Cursor Elements -->
+    <div class="custom-cursor-container">
+        <div class="custom-cursor-outer"></div>
+        <div class="custom-cursor-inner"></div>
+        <div class="cursor-trail"></div>
+    </div>
 
     <script>
         // Mobile Menu Toggle
@@ -1024,7 +1091,7 @@
         // Run animations on load
         window.addEventListener('load', animateOnScroll);
 
-        // Dynamic counter for stats
+        // Dynamic counter for stats (fallback function)
         function animateCounter(id, start, end, duration) {
             let startTimestamp = null;
             const element = document.getElementById(id);
@@ -1042,11 +1109,35 @@
             window.requestAnimationFrame(step);
         }
 
-        // Start counter animation when stats section is in view
+        // Live member count function
+        function fetchDiscordMemberCount() {
+            // Using Discord invite API with your existing invite code
+            fetch('https://discord.com/api/v9/invites/cV3bwWQmFZ?with_counts=true')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the member count with real Discord data
+                    document.getElementById('members-count').innerHTML = 
+                        data.approximate_member_count.toLocaleString() + '+';
+                    
+                    // Log the result for debugging
+                    console.log('Discord member count fetched:', data.approximate_member_count);
+                })
+                .catch(error => {
+                    console.error('Error fetching Discord data:', error);
+                    // Fallback to animation if API fails
+                    animateCounter('members-count', 0, 4500, 2000);
+                });
+            
+            // Refresh the count every 5 minutes
+            setTimeout(fetchDiscordMemberCount, 300000);
+        }
+
+        // Start member count fetch when stats section is in view
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    animateCounter('members-count', 0, 4500, 2000);
+                    // Call the live count function instead of the static animation
+                    fetchDiscordMemberCount();
                     observer.unobserve(entry.target);
                 }
             });
@@ -1077,6 +1168,83 @@
                 localStorage.setItem('darkMode', 'disabled');
             }
         });
+
+        // Custom cursor functionality
+        function initCustomCursor() {
+            if (window.matchMedia("(pointer: fine)").matches) {
+                const cursorOuter = document.querySelector('.custom-cursor-outer');
+                const cursorInner = document.querySelector('.custom-cursor-inner');
+                const cursorContainer = document.querySelector('.custom-cursor-container');
+                
+                // Create trail elements
+                const trailCount = 8;
+                const trailElements = [];
+                for (let i = 0; i < trailCount; i++) {
+                    const trail = document.createElement('div');
+                    trail.className = 'cursor-trail';
+                    trail.style.opacity = 1 - (i / trailCount);
+                    trail.style.transform = `translate(-50%, -50%) scale(${1 - (i * 0.05)})`;
+                    cursorContainer.appendChild(trail);
+                    trailElements.push({ element: trail, x: 0, y: 0 });
+                }
+
+                let mouseX = 0, mouseY = 0, prevX = 0, prevY = 0;
+
+                document.addEventListener('mousemove', e => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    cursorInner.style.left = mouseX + 'px';
+                    cursorInner.style.top = mouseY + 'px';
+                });
+
+                // Hover effects
+                const hoverTargets = document.querySelectorAll('a, button, .btn, .feature-box, .resource-card, .nav-links li a, .footer-links li a, #dark-mode-toggle');
+                hoverTargets.forEach(target => {
+                    target.addEventListener('mouseenter', () => cursorOuter.classList.add('hover'));
+                    target.addEventListener('mouseleave', () => cursorOuter.classList.remove('hover'));
+                });
+
+                // Click animations
+                document.addEventListener('mousedown', () => {
+                    cursorOuter.style.transform = 'translate(-50%, -50%) scale(0.8)';
+                    cursorInner.style.transform = 'translate(-50%, -50%) scale(0.6)';
+                });
+
+                document.addEventListener('mouseup', () => {
+                    cursorOuter.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorInner.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+
+                // Animation loop
+                function animateCursor() {
+                    const lagFactor = 0.15;
+                    prevX += (mouseX - prevX) * lagFactor;
+                    prevY += (mouseY - prevY) * lagFactor;
+                    
+                    cursorOuter.style.left = prevX + 'px';
+                    cursorOuter.style.top = prevY + 'px';
+
+                    trailElements.forEach((trail, index) => {
+                        if(index > 0) {
+                            trail.x = trailElements[index-1].x;
+                            trail.y = trailElements[index-1].y;
+                        } else {
+                            trail.x = prevX;
+                            trail.y = prevY;
+                        }
+                        trail.element.style.left = trail.x + 'px';
+                        trail.element.style.top = trail.y + 'px';
+                    });
+
+                    requestAnimationFrame(animateCursor);
+                }
+                
+                animateCursor();
+            }
+        }
+
+        // Initialize cursor after page load
+        window.addEventListener('load', initCustomCursor);
     </script>
 </body>
 </html>
