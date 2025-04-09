@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reigs Sweet Discord | Blox Fruits Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Dark Mode Variables */
+        :root {
+            --primary-color: #5865F2;
+            --secondary-color: #7289DA;
+            --text-color: #333;
+            --bg-color: #f9f9ff;
+            --card-bg: white;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --gradient-start: #f5f7ff;
+            --gradient-end: #e8eaff;
+            --footer-bg: #1e2a59;
+            --footer-text: #f5f5f5;
+            --cta-gradient-start: #5865F2;
+            --cta-gradient-end: #9B84EC;
+        }
+
+        body.dark-mode {
+            --primary-color: #7289DA;
+            --secondary-color: #5865F2;
+            --text-color: #e0e0e0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --header-bg: rgba(18, 18, 18, 0.95);
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --gradient-start: #1a1a1a;
+            --gradient-end: #252525;
+            --footer-bg: #0d1021;
+            --footer-text: #e0e0e0;
+            --cta-gradient-start: #4752c4;
+            --cta-gradient-end: #7965D3;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+            overflow-x: hidden;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5em;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .text-gradient {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 6rem 0;
+            animation: fadeInScale 1s ease-in-out;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(-10px); }
+            100% { transform: translateY(-50%) translateX(0); }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            background: var(--header-bg);
+            box-shadow: 0 2px 15px var(--shadow-color);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links li a:hover {
+            transform: scale(1.1);
+            color: var(--primary-color);
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links li a:hover::after {
+            width: 70%;
+        }
+
+        /* Dark Mode Toggle */
+        #dark-mode-toggle {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        #dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            opacity: 0.5;
+            z-index: 0;
+            background-image: radial-gradient(var(--primary-color) 0.5px, transparent 0.5px);
+            background-size: 15px 15px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .hero-content .btn {
+            display: inline-block;
+            margin: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .hero h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40%;
+            max-width: 500px;
+            z-index: 1;
+            animation: float 4s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image:hover {
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.6);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(88, 101, 242, 0.1);
+        }
+
+        .btn-animated {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-animated:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: -100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            background: var(--card-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .feature-box {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+            height: 100%;
+        }
+
+        .feature-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px var(--shadow-color);
+        }
+
+        .feature-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-box p {
+            color: var(--text-color);
+        }
+
+        .icon-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .feature-box:hover .icon-container {
+            transform: scale(1.1);
+            background: var(--bg-color);
+        }
+
+        .icon-container i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-box:hover .icon-container i {
+            transform: scale(1.1);
+        }
+
+        /* ===== RESOURCES SECTION ===== */
+        .resources {
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+        }
+
+        .resource-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+
+        .resource-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+
+        .resource-image {
+            width: 100%;
+            height: 180px;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .resource-card:hover .resource-image {
+            background: var(--secondary-color);
+        }
+
+        .resource-image i {
+            font-size: 3rem;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover .resource-image i {
+            transform: scale(1.1);
+        }
+
+        .resource-content {
+            padding: 1.5rem;
+        }
+
+        .resource-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.7rem;
+            transition: color 0.3s ease;
+        }
+
+        .resource-card:hover .resource-content h3 {
+            color: var(--primary-color);
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats-section {
+            background: var(--card-bg);
+            padding: 4rem 0;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .stat-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .stat-box:hover .stat-number {
+            color: var(--secondary-color);
+        }
+
+        .stat-label {
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        /* ===== RULES SECTION ===== */
+        .rules {
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+        }
+
+        .rules-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .rules-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px var(--shadow-color);
+        }
+
+        .rules-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .rules-list li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            transition: transform 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .rules-list li:hover {
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+
+        .rules-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .rules-list li:hover::before {
+            transform: scale(1.5);
+            background: var(--secondary-color);
+        }
+
+        /* ===== CALL TO ACTION ===== */
+        .cta {
+            text-align: center;
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--cta-gradient-start) 0%, var(--cta-gradient-end) 100%);
+            color: white;
+        }
+
+        .cta h2 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .cta h2::after {
+            background: white;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            opacity: 0.9;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-links li:hover {
+            transform: translateX(5px);
+        }
+
+        .footer-links a {
+            color: #d1d1d1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        /* ===== MEDIA QUERIES ===== */
+        @media (max-width: 1024px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2rem; }
+            section { padding: 4rem 0; }
+            .hero-image { width: 45%; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                box-shadow: 0 10px 20px var(--shadow-color);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            h1 { font-size: 2.5rem; }
+            .hero { min-height: 80vh; }
+            .hero-pattern { width: 100%; opacity: 0.3; }
+            .hero-image { 
+                position: relative;
+                width: 70%;
+                max-width: 300px;
+                margin: 3rem auto 0;
+                top: 0;
+                right: 0;
+                transform: none;
+                display: block;
+            }
+            .hero-content {
+                text-align: center;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.7rem; }
+            h3 { font-size: 1.4rem; }
+            p { font-size: 1rem; }
+            .container { width: 95%; }
+            .feature-box { padding: 1.5rem; }
+            .btn { padding: 0.8rem 1.5rem; font-size: 0.9rem; }
+            .stat-number { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fab fa-discord"></i>
+                    <span>Reigs Sweet Discord</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#rules">Rules</a></li>
+                    <li><a href="#join" class="btn btn-primary">Join Now</a></li>
+                </ul>
+                <button id="dark-mode-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-pattern"></div>
+        <div class="container">
+            <div class="hero-content animate-fadeIn">
+                <h1>Ultimate Blox Fruits Community</h1>
+                <p>Join our vibrant Discord server dedicated to Blox Fruits. Connect with fellow players, discover strategies, find raid partners, and level up your gameplay experience.</p>
+                <a href="#join" class="btn btn-primary btn-animated">Join Our Discord</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxjaXJjbGUgY3g9IjI1MCIgY3k9IjI1MCIgcj0iMjUwIiBmaWxsPSJyZ2JhKDg4LDEwMSwyNDIsMC4xKSIvPgo8cGF0aCBkPSJNMzg0LjMgMTc1LjVDMzg0LjMgMTc1LjUgMzU2LjEgMTUyLjggMzIyLjUgMTUxLjVMMzIwLjMgMTU2QzM0OS4yIDE2My44IDM2Mi42IDE3NS45IDM3Ni45IDE5MS4zQzMzOC44IDE3My4zIDMwMS43IDE3My41IDI2NS41IDE4My4zQzI1MC41IDE4Ny4zIDIzMy4zIDE5My40IDIxNS44IDE5OS41QzIxMC4zIDE4OC4zIDE5OC4zIDE3Ni4zIDE5OC4zIDE3Ni4zQzE2NC43IDE3Ny42IDE0MS4yIDE5NS4xIDExNS43IDIyNC41QzExNS43IDIyNC41IDg5LjIgMjgzLjggODkuMiAzNTkuNEM4OS4yIDM1OS40IDEwNy4yIDM5MS41IDE1Ni43IDM5Mi44QzE1Ni43IDM5Mi44IDE2Ny45IDM3OS4yIDE3Ny4zIDM2N0MxNDUuNyAzNTYuNyAxMzEuOCAzMzUuMSAxMzEuOCAzMzUuMUMxMzEuOCAzMzUuMSAxMzQuOSAzMzcuMiAxNDAuMyAzNDAuMUMxNDAuOCAzNDAuNSAxNDEuMiAzNDAuOSAxNDEuOCAzNDEuM0MxNDIuNyAzNDEuOSAxNDMuNiAzNDIuNCAxNDQuNSAzNDIuOEMxNTIuMyAzNDcgMTYwLjEgMzUwLjEgMTY3LjYgMzUyLjVDMTgxLjUgMzU2LjcgMTk3LjkgMzYwLjggMjE2LjcgMzYyLjlDMjQxLjQgMzY1LjYgMjY4LjkgMzY0LjMgMjk3LjggMzU3LjhDMzE4LjQgMzUzLjYgMzQwLjQgMzQ1LjcgMzYzLjUgMzMzLjdDMzYzLjUgMzMzLjcgMzQ4LjkgMzU2IDMxNi4xIDM2Ni4ySzM4NC4zIDE3NS41WiIgZmlsbD0iIzU4NjVGMiIvPgo8Y2lyY2xlIGN4PSIyMDIiIGN5PSIyNzgiIHI9IjMwIiBmaWxsPSJ3aGl0ZSIvPgo8Y2lyY2xlIGN4PSIyMDIiIGN5PSIyNzgiIHI9IjIwIiBmaWxsPSIjMUUyQTU5Ii8+CjxjaXJjbGUgY3g9IjI5OSIgY3k9IjI3OCIgcj0iMzAiIGZpbGw9IndoaXRlIi8+CjxjaXJjbGUgY3g9IjI5OSIgY3k9IjI3OCIgcj0iMjAiIGZpbGw9IiMxRTJBNTkiLz4KPC9zdmc+" alt="Discord Mascot" class="hero-image animate-fadeIn delay-300">
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Community Features</h2>
+                <p>Our Discord server offers various features to enhance your Blox Fruits experience</p>
+            </div>
+            <div class="grid">
+                <div class="feature-box animate-fadeIn delay-100">
+                    <div class="icon-container">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Trading Hub</h3>
+                    <p>Connect with other players to exchange fruits, items, and services. Our structured trading channels help you find exactly what you're looking for.</p>
+                </div>
+                <div class="feature-box animate-fadeIn delay-200">
+                    <div class="icon-container">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Raid Services</h3>
+                    <p>Looking for raid partners? Our server connects experienced players offering raid assistance with those seeking help, always with payment after completion.</p>
+                </div>
+                <div class="feature-box animate-fadeIn delay-300">
+                    <div class="icon-container">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Game Discussions</h3>
+                    <p>Dedicated channels for discussing various aspects of Blox Fruits, from combat strategies to fruit comparisons and update speculations.</p>
+                </div>
+                <div class="feature-box animate-fadeIn delay-400">
+                    <div class="icon-container">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Fan Art Showcase</h3>
+                    <p>Share your creative talents with our community and see amazing artwork from fellow Blox Fruits enthusiasts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources" id="resources">
+        <div class="container">
+            <div class="section-header">
+                <h2>Educational Resources</h2>
+                <p>Level up your knowledge with our comprehensive guides and resources</p>
+            </div>
+            <div class="grid">
+                <div class="resource-card animate-fadeIn delay-100">
+                    <div class="resource-image">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h3>Game Mechanics</h3>
+                        <p>Learn about the intricate systems of Blox Fruits through our detailed guides and tutorials created by experienced players.</p>
+                    </div>
+                </div>
+                <div class="resource-card animate-fadeIn delay-200">
+                    <div class="resource-image">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h3>Security Awareness</h3>
+                        <p>Understand how game security works and how to protect yourself online. We educate members about platform security and promote fair play.</p>
+                    </div>
+                </div>
+                <div class="resource-card animate-fadeIn delay-300">
+                    <div class="resource-image">
+                        <i class="fas fa-map"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h3>Beginners Guide</h3>
+                        <p>New to Blox Fruits? Our comprehensive guides will help you navigate the early stages of the game and avoid common pitfalls.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats">
+                <div class="stat-box animate-fadeIn">
+                    <div class="stat-number" id="members-count">4,500+</div>
+                    <div class="stat-label">Community Members</div>
+                </div>
+                <div class="stat-box animate-fadeIn delay-100">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Expert Guides</div>
+                </div>
+                <div class="stat-box animate-fadeIn delay-200">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Active Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rules Section -->
+    <section class="rules" id="rules">
+        <div class="container">
+            <div class="section-header">
+                <h2>Server Rules</h2>
+                <p>To maintain a friendly and safe environment, we enforce the following rules</p>
+            </div>
+            <div class="rules-container animate-fadeIn">
+                <ul class="rules-list">
+                    <li>Respect all members at all times. No harassment, hate speech, or discrimination.</li>
+                    <li>No spamming or excessive self-promotion in any channels.</li>
+                    <li>Keep discussions in appropriate channels according to the topic.</li>
+                    <li>No sharing links to external websites without moderator approval.</li>
+                    <li>No sharing or requesting exploits that violate Roblox Terms of Service.</li>
+                    <li>Payment for services only after completion to prevent scams.</li>
+                    <li>No blank, inappropriate, or offensive nicknames or profile pictures.</li>
+                    <li>No sharing personal information of yourself or others.</li>
+                    <li>Report any issues or rule violations to moderators through appropriate channels.</li>
+                    <li>All members must follow Discord's Terms of Service and Community Guidelines.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta" id="join">
+        <div class="container">
+            <h2>Join Our Community</h2>
+            <p>Ready to elevate your Blox Fruits experience? Join our growing community of passionate players and become part of something special.</p>
+            <a href="https://discord.gg/cV3bwWQmFZ" target="_blank" class="btn btn-primary btn-animated">Connect With Us Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reigs Sweet Discord</h3>
+                    <p>A vibrant community for Blox Fruits enthusiasts and Roblox players looking to enhance their gaming experience.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                        <li><a href="#rules">Rules</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Beginner's Guide</a></li>
+                        <li><a href="#">Fruits Tier List</a></li>
+                        <li><a href="#">Raid Guides</a></li>
+                        <li><a href="#">Trading Values</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>This community is not affiliated with Roblox Corporation or the official Blox Fruits development team.</p>
+                <p>&copy; 2025 Reigs Sweet Discord. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileToggle.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Animate elements when they come into view
+        const animateOnScroll = () => {
+            const animatedElements = document.querySelectorAll('.animate-fadeIn');
+            
+            animatedElements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if(elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                }
+            });
+        }
+
+        // Run animations on scroll
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Run animations on load
+        window.addEventListener('load', animateOnScroll);
+
+        // Dynamic counter for stats
+        function animateCounter(id, start, end, duration) {
+            let startTimestamp = null;
+            const element = document.getElementById(id);
+            
+            function step(timestamp) {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.innerHTML = value.toLocaleString() + '+';
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            }
+            
+            window.requestAnimationFrame(step);
+        }
+
+        // Start counter animation when stats section is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter('members-count', 0, 4500, 2000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.querySelector('.stats-section'));
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const icon = darkModeToggle.querySelector('i');
+
+        // Check for saved preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Toggle dark mode
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            // Toggle icon
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    </script>
+</body>
+</html>
